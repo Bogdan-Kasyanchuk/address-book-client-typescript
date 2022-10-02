@@ -1,19 +1,17 @@
 import { configureStore, AnyAction } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import { contactsReducer } from './contacts/contacts-reducers';
-import { authReducer } from './auth/auth-reducers';
-import { loadingReducer } from './loading-reducer';
-import { errorReducer } from './error-reducer';
+import { authReducer } from './auth/auth-reducer';
+import { otherReducer } from './other-reducer';
 import middleware from './middleware';
 import persistConfig from './persistConfig';
-import type { RootReducer } from './auth/auth-reducers';
+import type { AuthReducer } from './auth/auth-reducer';
 
 export const store = configureStore({
   reducer: {
     contacts: contactsReducer,
-    auth: persistReducer<RootReducer, AnyAction>(persistConfig, authReducer),
-    loading: loadingReducer,
-    error: errorReducer,
+    auth: persistReducer<AuthReducer, AnyAction>(persistConfig, authReducer),
+    other: otherReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware(middleware),
   devTools: process.env.NODE_ENV === 'development',

@@ -23,6 +23,6 @@ const Div = styled.div`
   position: fixed;
   top: 50vh;
   left: 50vw;
-  z-index: 1000;
+  z-index: 5000;
   transform: translate(-50%, 0px);
 `;

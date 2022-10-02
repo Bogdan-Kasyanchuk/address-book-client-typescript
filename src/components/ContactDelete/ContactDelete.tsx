@@ -22,6 +22,7 @@ const ContactDelete: FC<IContactDeleteProps> = ({
   const contactDelete = (): void => {
     dispatch(deleteContact(id));
     if (filter) dispatch(filterContact(''));
+    closeModalDelete();
   };
 
   return (

@@ -11,8 +11,10 @@ const initialState: IInitialState = {
     isLoggedIn: false,
     isFetchingCurrentUser: false,
   },
-  loading: false,
-  error: null,
+  other: {
+    loading: false,
+    error: null,
+  },
 };
 
 export default initialState;

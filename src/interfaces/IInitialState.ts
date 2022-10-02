@@ -11,6 +11,8 @@ export interface IInitialState {
     isLoggedIn: boolean;
     isFetchingCurrentUser: boolean;
   };
-  loading: boolean;
-  error: any;
+  other: {
+    loading: boolean;
+    error: any;
+  };
 }
