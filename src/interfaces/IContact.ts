@@ -16,4 +16,5 @@ export interface IContact {
   phone: string;
   updatedAt: string;
   _id: string;
+  fileAvatar?: null | File;
 }

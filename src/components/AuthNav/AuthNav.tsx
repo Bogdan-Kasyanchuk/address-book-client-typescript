@@ -4,30 +4,30 @@ import Link from '../Link/Link';
 
 const AuthNav: FC = () => {
   return (
-    <Ul>
-      <Li>
+    <List>
+      <Item>
         <Link to="/register" iconName="register">
           Register
         </Link>
-      </Li>
-      <Li>
+      </Item>
+      <Item>
         <Link to="/login" iconName="login">
           Login
         </Link>
-      </Li>
-    </Ul>
+      </Item>
+    </List>
   );
 };
 
 export default AuthNav;
 
-const Ul = styled.ul`
+const List = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
 
-const Li = styled.li`
+const Item = styled.li`
   :first-child {
     margin-right: 20px;
   }

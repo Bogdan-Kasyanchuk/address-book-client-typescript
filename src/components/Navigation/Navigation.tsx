@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { getIsLoggedIn } from '../../redux/auth/auth-selectors';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import Link from '../Link/Link';
 import { size } from '../../styles/variables';
 
@@ -9,26 +9,26 @@ const Navigation: FC = () => {
   const isLoggedIn = useAppSelector(getIsLoggedIn);
 
   return (
-    <Ul>
-      <Li>
+    <List>
+      <Item>
         <Link to="/" end iconName="home">
           Home
         </Link>
-      </Li>
+      </Item>
       {isLoggedIn && (
-        <Li>
+        <Item>
           <Link to="/contacts" iconName="contacts">
             Contacts
           </Link>
-        </Li>
+        </Item>
       )}
-    </Ul>
+    </List>
   );
 };
 
 export default Navigation;
 
-const Ul = styled.ul`
+const List = styled.ul`
   display: flex;
   align-items: center;
   flex-basis: calc(100% / 3);
@@ -39,7 +39,7 @@ const Ul = styled.ul`
   }
 `;
 
-const Li = styled.li`
+const Item = styled.li`
   :first-child {
     margin-right: 15px;
 

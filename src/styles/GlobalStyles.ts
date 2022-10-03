@@ -81,6 +81,11 @@ button
   border: 1px solid ${firstColor};
   background-color: ${firstColor};
 
+  :disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
   :hover,
   :focus-visible {
     color: ${firstColor};

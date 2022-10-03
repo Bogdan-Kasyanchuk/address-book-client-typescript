@@ -1,20 +1,24 @@
 import { FC, useState, ChangeEvent, MouseEvent } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { getUserName } from '../../redux/auth/auth-selectors';
 import { deleteAvatarUser, updateUser } from '../../redux/auth/auth-operations';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import Modal from '../Modal/Modal';
 import SubTitle from '../SubTitle/SubTitle';
 import AvatarEdit from '../AvatarEdit/AvatarEdit';
 import Form from '../Form/Form';
+import LabelInput from '../LabelInput/LabelInput';
+import InputStandart from '../InputStandart/InputStandart';
+import ErrorForm from '../ErrorForm/ErrorForm';
 import ButtonGroup from '../ButtonGroup/ButtonGroup';
-import ButtonText from '../ButtonText/ButtonText';
-import InputStandartForm from '../InputStandartForm/InputStandartForm';
+import Button from '../Button/Button';
 import loadAvatarService from '../../service/loadAvatarService';
 import validation from '../../service/validationService';
 import { TITLE_FORM } from '../../helpers/constants';
-import { IUserUpdate, IUserEditProps } from '../../interfaces';
+import { IUser, IUserEditProps } from '../../interfaces';
+
+type TUserEdit = 'name' | 'fileAvatar';
 
 const UserEdit: FC<IUserEditProps> = ({ userAvatar, closeModalEdit }) => {
   const dispatch = useAppDispatch();
@@ -30,24 +34,24 @@ const UserEdit: FC<IUserEditProps> = ({ userAvatar, closeModalEdit }) => {
     resetField,
     watch,
     formState: { errors },
-  } = useForm<IUserUpdate>({ mode: 'onBlur' });
+  } = useForm<Pick<IUser, TUserEdit>>({ mode: 'onBlur' });
 
   const buttonDisabled: boolean =
     (watch('name') !== userName && watch('name') !== undefined) ||
     fileAvatar !== null;
 
-  const loadAvatar = (event: ChangeEvent<HTMLInputElement>): void => {
-    loadAvatarService(event, setFileAvatar, setImagePreview);
+  const loadAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
+    loadAvatarService(e, setFileAvatar, setImagePreview);
   };
 
-  const deleteAvatar = (event: MouseEvent<HTMLButtonElement>): void => {
-    event.stopPropagation();
+  const deleteAvatar = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation();
     setImagePreview(null);
     setFileAvatar(null);
     dispatch(deleteAvatarUser());
   };
 
-  const editUser: SubmitHandler<IUserUpdate> = ({ name }): void => {
+  const editUser: SubmitHandler<Pick<IUser, TUserEdit>> = ({ name }): void => {
     dispatch(updateUser({ fileAvatar, name }));
     closeModalEdit();
   };
@@ -69,23 +73,26 @@ const UserEdit: FC<IUserEditProps> = ({ userAvatar, closeModalEdit }) => {
         loadAvatar={loadAvatar}
       ></AvatarEdit>
       <Form autoComplete="off" formHundler={handleSubmit(editUser)}>
-        <InputStandartForm
-          name="Name"
-          type="text"
-          defaultValue={userName as string}
-          register={register}
-          validation={validation.name}
-          placeholder="Enter name"
-          title={TITLE_FORM.NAME}
-          errors={errors}
-        />
+        <LabelInput>
+          Name
+          <InputStandart
+            name="name"
+            type="text"
+            defaultValue={userName as string}
+            register={register}
+            validation={validation.name}
+            placeholder="Enter name"
+            title={TITLE_FORM.NAME}
+          />
+          {errors.name && <ErrorForm errors={errors} name="name" />}
+        </LabelInput>
         <ButtonGroup>
-          <ButtonText disabled={!buttonDisabled} type="submit">
+          <Button text type="submit" disabled={!buttonDisabled}>
             Ok
-          </ButtonText>
-          <ButtonText type="button" buttonHundler={closeModal}>
+          </Button>
+          <Button text buttonHundler={closeModal}>
             Cancel
-          </ButtonText>
+          </Button>
         </ButtonGroup>
       </Form>
     </Modal>

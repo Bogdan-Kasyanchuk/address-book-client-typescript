@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { getUserName, getUserAvatarUrl } from '../../redux/auth/auth-selectors';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import Avatar from '../Avatar/Avatar';
+import Button from '../Button/Button';
 import UserEdit from '../UserEdit/UserEdit';
 import LogOut from '../LogOut/LogOut';
-import Avatar from '../Avatar/Avatar';
-import ButtonIconText from '../ButtonIconText/ButtonIconText';
 import notAvatar from '../../assets/img/notAvatar.png';
 import { size, firstColor } from '../../styles/variables';
 
@@ -63,37 +63,39 @@ const UserMenu: FC = () => {
   };
 
   return (
-    <DivWrapper>
-      <Div onClick={openModalEdit}>
+    <Wrapper>
+      <Box onClick={openModalEdit}>
         <ImageWrapper>
           <Avatar src={userAvatar} alt="Avatar" />
         </ImageWrapper>
-        <P>{userName}</P>
-      </Div>
-      <ButtonIconText
-        type="button"
+        <Text>{userName}</Text>
+      </Box>
+      <Button
+        icon
+        text
+        displayMobileMax
         buttonHundler={openModalLogOut}
         iconName="logout"
       >
         Logout
-      </ButtonIconText>
+      </Button>
       {isOpenModal.edit && (
         <UserEdit userAvatar={userAvatar} closeModalEdit={closeModalEdit} />
       )}
       {isOpenModal.logOut && <LogOut closeModalLogOut={closeModalLogOut} />}
-    </DivWrapper>
+    </Wrapper>
   );
 };
 
 export default UserMenu;
 
-const DivWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
 
-const Div = styled.div`
+const Box = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -114,7 +116,7 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const P = styled.p`
+const Text = styled.p`
   margin-left: 10px;
   flex-basis: 25%;
   font-size: 14px;

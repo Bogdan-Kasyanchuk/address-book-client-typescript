@@ -1,7 +1,7 @@
 import { FC, useState, MouseEvent } from 'react';
 import styled from 'styled-components';
+import Button from '../Button/Button';
 import ContactFavoriteEdit from '../ContactFavoriteEdit/ContactFavoriteEdit';
-import ButtonIconText from '../ButtonIconText/ButtonIconText';
 import Avatar from '../Avatar/Avatar';
 import ContactContent from '../ContactContent/ContactContent';
 import ContactEdit from '../ContactEdit/ContactEdit';
@@ -21,19 +21,19 @@ const ContactItem: FC<IContactItemProps> = ({ element }) => {
 
   const userAvatar: string = element.avatarUrl ? element.avatarUrl : notAvatar;
 
-  const handlerContact = (event: MouseEvent<HTMLLIElement>): void => {
+  const handlerContact = (e: MouseEvent<HTMLLIElement>): void => {
     const {
       nodeName,
-      textContent,
-    }: { nodeName: string; textContent: string | null } =
-      event.target as HTMLLIElement;
+      ariaLabel,
+    }: { nodeName: string; ariaLabel: string | null } =
+      e.target as HTMLLIElement;
     if (nodeName !== 'BUTTON') {
       return;
     } else {
-      if (textContent === 'Edit') {
+      if (ariaLabel === 'edit') {
         openModalEdit();
       }
-      if (textContent === 'Delete') {
+      if (ariaLabel === 'delete') {
         setIsOpenModal({
           ...{
             edit: false,
@@ -77,31 +77,19 @@ const ContactItem: FC<IContactItemProps> = ({ element }) => {
 
   return (
     <>
-      <Li onClick={handlerContact}>
+      <Item onClick={handlerContact}>
         <ButtonWrapper>
-          <ButtonIconText
-            type="button"
-            iconName="edit"
-            displayMobileMax={false}
-          >
-            Edit
-          </ButtonIconText>
-          <ButtonIconText
-            type="button"
-            iconName="delete"
-            displayMobileMax={false}
-          >
-            Delete
-          </ButtonIconText>
+          <Button icon iconName="edit" ariaLabel="edit" />
+          <Button icon iconName="delete" ariaLabel="delete" />
         </ButtonWrapper>
-        <ContactFavoriteEdit favorite={element.favorite} id={element._id} />
-        <Div>
+        <ContactFavoriteEdit favorite={element.favorite} _id={element._id} />
+        <Box>
           <AvatarWrapper>
             <Avatar src={userAvatar} alt={'Avatar'} />
           </AvatarWrapper>
           <ContactContent element={element as any} />
-        </Div>
-      </Li>
+        </Box>
+      </Item>
       {isOpenModal.edit && (
         <ContactEdit
           element={element as any}
@@ -111,7 +99,7 @@ const ContactItem: FC<IContactItemProps> = ({ element }) => {
       )}
       {isOpenModal.delete && (
         <ContactDelete
-          id={element._id}
+          _id={element._id}
           name={element.name}
           closeModalDelete={closeModalDelete}
         />
@@ -122,7 +110,7 @@ const ContactItem: FC<IContactItemProps> = ({ element }) => {
 
 export default ContactItem;
 
-const Li = styled.li`
+const Item = styled.li`
   position: relative;
   margin-left: 20px;
   margin-top: 20px;
@@ -155,7 +143,7 @@ const ButtonWrapper = styled.div`
   height: 85px;
 `;
 
-const Div = styled.div`
+const Box = styled.div`
   ${size.tabletMin} {
     display: flex;
   }

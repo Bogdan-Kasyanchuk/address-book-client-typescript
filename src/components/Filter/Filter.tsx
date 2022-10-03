@@ -1,18 +1,17 @@
 import { ChangeEvent, FC } from 'react';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { getFilter } from '../../redux/contacts/contacts-selectors';
 import { filterContact } from '../../redux/contacts/contacts-action';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import LabelInput from '../LabelInput/LabelInput';
-import InputFilter from '../InputFilter/InputFilter';
-import ButtonIconText from '../ButtonIconText/ButtonIconText';
+import Button from '../Button/Button';
 
 const Filter: FC = () => {
   const dispatch = useAppDispatch();
   const filter = useAppSelector(getFilter);
 
-  const contactFilter = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(filterContact(event.target.value));
+  const contactFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(filterContact(e.target.value));
   };
 
   const filterReset = () => {
@@ -23,22 +22,20 @@ const Filter: FC = () => {
     <>
       <LabelInput marginBottom="0" marginRight="20px">
         Find by name
-        <InputFilter
-          autoComplete="off"
+        <input
           type="text"
           value={filter}
           placeholder="Enter name"
-          inputHundler={contactFilter}
+          onChange={contactFilter}
         />
       </LabelInput>
-      <ButtonIconText
-        disabled={!filter}
-        type="button"
+      <Button
+        icon
         buttonHundler={filterReset}
         iconName="cleaner"
-      >
-        Clear
-      </ButtonIconText>
+        disabled={!filter}
+        ariaLabel="clear"
+      />
     </>
   );
 };

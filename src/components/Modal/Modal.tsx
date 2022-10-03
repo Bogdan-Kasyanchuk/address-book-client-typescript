@@ -2,7 +2,7 @@ import { FC, useEffect, KeyboardEvent, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import Icon from '../Icon/Icon';
-import ButtonText from '../ButtonText/ButtonText';
+import Button from '../Button/Button';
 import { bgColor, accentColor } from '../../styles/variables';
 import { IModalProps } from '../../interfaces';
 
@@ -18,14 +18,14 @@ const Modal: FC<IModalProps> = ({ modalHundler, children }) => {
     };
   });
 
-  const onClickKeyDown = (event: KeyboardEvent<Element>): void => {
-    if (event.code === 'Escape') {
+  const onClickKeyDown = (e: KeyboardEvent<Element>): void => {
+    if (e.code === 'Escape') {
       modalHundler();
     }
   };
 
-  const onClickBackdrop = (event: MouseEvent<HTMLDivElement>): void => {
-    if (event.currentTarget === event.target) {
+  const onClickBackdrop = (e: MouseEvent<HTMLDivElement>): void => {
+    if (e.currentTarget === e.target) {
       modalHundler();
     }
   };
@@ -33,12 +33,12 @@ const Modal: FC<IModalProps> = ({ modalHundler, children }) => {
   return createPortal(
     <Overlay onClick={onClickBackdrop}>
       <Content>
-        <DiwWrapper>
+        <Box>
           <Icon iconName="logo" width="34px" height="34px" />
-          <ButtonText type="button" buttonHundler={modalHundler}>
+          <Button text buttonHundler={modalHundler}>
             Close
-          </ButtonText>
-        </DiwWrapper>
+          </Button>
+        </Box>
         <Div>{children}</Div>
       </Content>
     </Overlay>,
@@ -72,7 +72,7 @@ const Content = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const DiwWrapper = styled.div`
+const Box = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -12,16 +12,16 @@ const Contacts: FC = () => {
 
   return (
     <>
-      <Div>
+      <Box>
         <ContactCreate />
         <ContactFavorite
           searchParams={searchParams}
           setSearchParams={setSearchParams}
         />
-      </Div>
-      <Div alignItems="flex-end" maxWidth="450px">
+      </Box>
+      <Box alignItems="flex-end" maxWidth="400px">
         <Filter />
-      </Div>
+      </Box>
       <SubTitle>Contacts list</SubTitle>
       <ContactsList searchParams={searchParams.get('favorite')} />
     </>
@@ -30,7 +30,7 @@ const Contacts: FC = () => {
 
 export default Contacts;
 
-const Div = styled.div<{ alignItems?: string; maxWidth?: string }>`
+const Box = styled.div<{ alignItems?: string; maxWidth?: string }>`
   display: flex;
   justify-content: space-around;
   align-items: ${({ alignItems }) => alignItems || 'center'};

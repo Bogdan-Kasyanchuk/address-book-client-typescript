@@ -4,16 +4,16 @@ import { visuallyHidden } from '../../styles/utils';
 import { IInputCheckboxProps } from '../../interfaces';
 
 const InputCheckbox: FC<IInputCheckboxProps> = ({
-  register,
   name,
-  favorite,
+  register,
   inputCheckHandler,
+  favorite,
 }) => {
   return (
     <Input
       type="checkbox"
       {...(register && {
-        ...register(name?.toLowerCase() as 'favorite'),
+        ...register(name),
       })}
       checked={favorite}
       onChange={inputCheckHandler}

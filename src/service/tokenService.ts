@@ -5,10 +5,10 @@ import { ITokenService } from '../interfaces';
 axios.defaults.baseURL = 'https://bogkas-addressbook.herokuapp.com/api';
 
 const tokenService: ITokenService = {
-  set(token: string): void {
+  set(token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
-  unset(): void {
+  unset() {
     axios.defaults.headers.common.Authorization = '';
   },
 };

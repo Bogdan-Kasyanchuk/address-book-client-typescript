@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { getUserName } from '../../redux/auth/auth-selectors';
 import { logOutUser } from '../../redux/auth/auth-operations';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import Modal from '../Modal/Modal';
 import ButtonGroup from '../ButtonGroup/ButtonGroup';
-import ButtonText from '../ButtonText/ButtonText';
+import Button from '../Button/Button';
 import { accentColor } from '../../styles/variables';
 
 const LogOut: FC<{ closeModalLogOut: () => void }> = ({ closeModalLogOut }) => {
@@ -22,12 +22,12 @@ const LogOut: FC<{ closeModalLogOut: () => void }> = ({ closeModalLogOut }) => {
     <Modal modalHundler={closeModalLogOut}>
       <Text>{userName ?? 'User'}, are you sure you want to exit?</Text>
       <ButtonGroup>
-        <ButtonText type="button" buttonHundler={logOut}>
+        <Button text buttonHundler={logOut}>
           Ok
-        </ButtonText>
-        <ButtonText type="button" buttonHundler={closeModalLogOut}>
+        </Button>
+        <Button text buttonHundler={closeModalLogOut}>
           Cancel
-        </ButtonText>
+        </Button>
       </ButtonGroup>
     </Modal>
   );

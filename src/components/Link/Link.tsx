@@ -14,7 +14,7 @@ const Link: FC<ILinkProps> = ({ to, end, iconName, children }) => {
   return (
     <CustomNavLink to={to} end>
       <Icon iconName={iconName} />
-      <Span>{children}</Span>
+      <Text>{children}</Text>
     </CustomNavLink>
   );
 };
@@ -45,7 +45,7 @@ const CustomNavLink = styled(NavLink)`
   }
 `;
 
-const Span = styled.span`
+const Text = styled.span`
   margin-left: 8px;
 
   ${size.mobileMax} {

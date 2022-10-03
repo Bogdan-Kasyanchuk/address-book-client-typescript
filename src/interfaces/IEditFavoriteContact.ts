@@ -1,4 +1,6 @@
+import { IContact } from './';
+
 export interface IEditFavoriteContact {
-  id: string;
-  favorite: boolean;
+  favorite: IContact['favorite'];
+  _id: IContact['_id'];
 }

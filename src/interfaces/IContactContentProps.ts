@@ -1,9 +1,5 @@
+import { IContact } from './';
+
 export interface IContactContentProps {
-  element: {
-    name: string;
-    phone: string;
-    email: string;
-    address: string;
-    other: string;
-  };
+  element: Pick<IContact, 'name' | 'phone' | 'email' | 'address' | 'other'>;
 }

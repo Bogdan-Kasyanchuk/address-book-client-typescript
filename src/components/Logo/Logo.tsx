@@ -5,16 +5,16 @@ import { size, accentColor } from '../../styles/variables';
 
 const Logo: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <Div>
+    <Box>
       <Icon iconName="logo" width="34px" height="34px" />
-      <H1>{children}</H1>
-    </Div>
+      <Text>{children}</Text>
+    </Box>
   );
 };
 
 export default Logo;
 
-const Div = styled.div`
+const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@ const Div = styled.div`
   }
 `;
 
-const H1 = styled.h1`
+const Text = styled.h1`
   margin-left: 10px;
   line-height: 1.06;
   text-transform: uppercase;

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { ITextAreaProps } from '../../interfaces';
 
-const TextAreaForm: FC<ITextAreaProps> = ({
+const TextArea: FC<ITextAreaProps> = ({
   name,
   defaultValue,
   register,
@@ -12,14 +12,14 @@ const TextAreaForm: FC<ITextAreaProps> = ({
   return (
     <Textarea
       defaultValue={defaultValue}
-      {...register(name.toLowerCase() as 'other')}
+      {...register(name)}
       placeholder={placeholder}
       title={title}
     />
   );
 };
 
-export default TextAreaForm;
+export default TextArea;
 
 const Textarea = styled.textarea`
   display: block;

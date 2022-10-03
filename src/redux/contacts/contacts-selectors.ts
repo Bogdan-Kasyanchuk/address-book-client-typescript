@@ -1,15 +1,18 @@
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-import { IContact } from '../../interfaces';
 
-export const getContacts = (state: RootState): IContact[] =>
+export const getContacts = (state: RootState): RootState['contacts']['items'] =>
   state.contacts.items;
-export const getFilter = (state: RootState): string => state.contacts.filter;
+export const getFilter = (state: RootState): RootState['contacts']['filter'] =>
+  state.contacts.filter;
 
 export const getFilteredContacts = createSelector(
   [getContacts, getFilter],
 
-  (contacts: IContact[], filter: string): IContact[] => {
+  (
+    contacts: RootState['contacts']['items'],
+    filter: string,
+  ): RootState['contacts']['items'] => {
     const normalizedFilter: string = filter.toLowerCase();
 
     return contacts.filter(element =>

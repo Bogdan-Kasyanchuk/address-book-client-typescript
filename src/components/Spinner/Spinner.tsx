@@ -5,7 +5,7 @@ import { accentColor } from '../../styles/variables';
 
 const Spinner: FC = () => {
   return (
-    <Div>
+    <Box>
       <Oval
         height={50}
         width={50}
@@ -13,13 +13,13 @@ const Spinner: FC = () => {
         ariaLabel="oval-loading"
         secondaryColor={accentColor}
       />
-    </Div>
+    </Box>
   );
 };
 
 export default Spinner;
 
-const Div = styled.div`
+const Box = styled.div`
   position: fixed;
   top: 50vh;
   left: 50vw;

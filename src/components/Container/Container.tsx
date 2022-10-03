@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { size } from '../../styles/variables';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
-  return <Div>{children}</Div>;
+  return <Box>{children}</Box>;
 };
 
 export default Container;
 
-const Div = styled.div`
+const Box = styled.div`
   margin-left: auto;
   margin-right: auto;
   padding-left: 15px;

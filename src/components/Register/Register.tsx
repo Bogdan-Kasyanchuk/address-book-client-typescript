@@ -1,13 +1,17 @@
 import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { registerUser } from '../../redux/auth/auth-operations';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import Form from '../Form/Form';
-import ButtonText from '../ButtonText/ButtonText';
-import InputStandartForm from '../InputStandartForm/InputStandartForm';
+import LabelInput from '../LabelInput/LabelInput';
+import InputStandart from '../InputStandart/InputStandart';
+import ErrorForm from '../ErrorForm/ErrorForm';
+import Button from '../Button/Button';
 import validation from '../../service/validationService';
 import { TITLE_FORM } from '../../helpers/constants';
-import { IUserRegister } from '../../interfaces';
+import { IUser } from '../../interfaces';
+
+type TRegister = 'avatarUrl' | 'fileAvatar';
 
 const Register: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +20,7 @@ const Register: FC = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IUserRegister>({ mode: 'onBlur' });
+  } = useForm<Omit<IUser, TRegister>>({ mode: 'onBlur' });
 
   const buttonDisabled: boolean =
     watch('name') === '' ||
@@ -26,42 +30,51 @@ const Register: FC = () => {
     watch('email') === undefined ||
     watch('password') === undefined;
 
-  const userRegister: SubmitHandler<IUserRegister> = credentials => {
+  const userRegister: SubmitHandler<Omit<IUser, TRegister>> = credentials => {
     dispatch(registerUser(credentials));
   };
 
   return (
     <Form autoComplete="off" formHundler={handleSubmit(userRegister)}>
-      <InputStandartForm
-        name="Name"
-        type="text"
-        register={register}
-        validation={validation.name}
-        placeholder="Enter name"
-        title={TITLE_FORM.NAME}
-        errors={errors}
-      />
-      <InputStandartForm
-        name="Email"
-        type="email"
-        register={register}
-        validation={validation.email}
-        placeholder="Enter email"
-        title={TITLE_FORM.EMAIL}
-        errors={errors}
-      />
-      <InputStandartForm
-        name="Password"
-        type="password"
-        register={register}
-        validation={validation.password}
-        placeholder="Enter password"
-        title={TITLE_FORM.PASSWORD}
-        errors={errors}
-      />
-      <ButtonText disabled={buttonDisabled} type="submit">
+      <LabelInput>
+        Name
+        <InputStandart
+          name="name"
+          type="text"
+          register={register}
+          validation={validation.name}
+          placeholder="Enter name"
+          title={TITLE_FORM.NAME}
+        />
+        {errors.name && <ErrorForm errors={errors} name="name" />}
+      </LabelInput>
+      <LabelInput>
+        Email
+        <InputStandart
+          name="email"
+          type="email"
+          register={register}
+          validation={validation.email}
+          placeholder="Enter email"
+          title={TITLE_FORM.EMAIL}
+        />
+        {errors.email && <ErrorForm errors={errors} name="email" />}
+      </LabelInput>
+      <LabelInput>
+        Password
+        <InputStandart
+          name="password"
+          type="password"
+          register={register}
+          validation={validation.password}
+          placeholder="Enter password"
+          title={TITLE_FORM.PASSWORD}
+        />
+        {errors.password && <ErrorForm errors={errors} name="password" />}
+      </LabelInput>
+      <Button text marginAuto type="submit" disabled={buttonDisabled}>
         Register
-      </ButtonText>
+      </Button>
     </Form>
   );
 };

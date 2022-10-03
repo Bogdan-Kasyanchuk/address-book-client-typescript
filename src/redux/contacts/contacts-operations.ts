@@ -1,11 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import {
-  IContact,
-  IContactUpdate,
-  IEditFavoriteContact,
-} from '../../interfaces';
+import { IContact, IEditFavoriteContact } from '../../interfaces';
+
+type TAddContact =
+  | 'name'
+  | 'phone'
+  | 'email'
+  | 'address'
+  | 'other'
+  | 'favorite';
+type TUpdateContact =
+  | '_id'
+  | 'name'
+  | 'phone'
+  | 'email'
+  | 'address'
+  | 'other'
+  | 'fileAvatar';
 
 export const getContact = createAsyncThunk<
   IContact[],
@@ -23,7 +35,7 @@ export const getContact = createAsyncThunk<
 
 export const addContact = createAsyncThunk<
   IContact,
-  IContact,
+  Pick<IContact, TAddContact>,
   { rejectValue: any }
 >('contacts/add', async (contact, { rejectWithValue }) => {
   try {
@@ -40,11 +52,11 @@ export const deleteContact = createAsyncThunk<
   string,
   string,
   { rejectValue: any }
->('contacts/delete', async (id, { rejectWithValue }) => {
+>('contacts/delete', async (_id, { rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(`/contacts/${id}`);
+    const { data } = await axios.delete(`/contacts/${_id}`);
     toast.success(data.payload.message);
-    return id;
+    return _id;
   } catch (error) {
     toast.error(rejectWithValue(error).payload.response.data.payload.message);
     return rejectWithValue(error);
@@ -53,12 +65,12 @@ export const deleteContact = createAsyncThunk<
 
 export const updateContact = createAsyncThunk<
   IContact,
-  IContactUpdate,
+  Pick<IContact, TUpdateContact>,
   { rejectValue: any }
 >(
   'contacts/update',
   async (
-    { _id: id, name, phone, email, address, other, fileAvatar },
+    { _id, name, phone, email, address, other, fileAvatar },
     { rejectWithValue },
   ) => {
     try {
@@ -71,7 +83,7 @@ export const updateContact = createAsyncThunk<
       formData.append('email', email);
       formData.append('address', address);
       formData.append('other', other);
-      const { data } = await axios.put(`/contacts/${id}`, formData);
+      const { data } = await axios.put(`/contacts/${_id}`, formData);
       toast.success(data.payload.message);
       return data.payload.contact;
     } catch (error) {
@@ -85,9 +97,9 @@ export const editFavoriteContact = createAsyncThunk<
   IContact,
   IEditFavoriteContact,
   { rejectValue: any }
->('contacts/editFavorite', async ({ id, favorite }, { rejectWithValue }) => {
+>('contacts/editFavorite', async ({ _id, favorite }, { rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(`/contacts/${id}/favorite`, {
+    const { data } = await axios.patch(`/contacts/${_id}/favorite`, {
       favorite,
     });
     toast.success(data.payload.message);
@@ -102,9 +114,9 @@ export const deleteAvatarContact = createAsyncThunk<
   IContact,
   string,
   { rejectValue: any }
->('contacts/deleteAvatar', async (id, { rejectWithValue }) => {
+>('contacts/deleteAvatar', async (_id, { rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(`/contacts/${id}/avatars`);
+    const { data } = await axios.delete(`/contacts/${_id}/avatars`);
     toast.success(data.payload.message);
     return data.payload.contact;
   } catch (error) {

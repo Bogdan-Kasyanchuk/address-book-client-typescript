@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import styled from 'styled-components';
 import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import ContactItem from '../ContactItem/ContactItem';
 import { size } from '../../styles/variables';
 
@@ -11,20 +11,20 @@ const ContactsList: FC<{ searchParams: string | null }> = ({
   const filteredContacts = useAppSelector(getFilteredContacts);
 
   return (
-    <Ul>
+    <List>
       {filteredContacts.map(
         element =>
           (searchParams && !element.favorite) || (
             <ContactItem key={element._id} element={element} />
           ),
       )}
-    </Ul>
+    </List>
   );
 };
 
 export default ContactsList;
 
-const Ul = styled.ul`
+const List = styled.ul`
   margin-left: -20px;
   margin-top: -20px;
   display: flex;

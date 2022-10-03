@@ -1,7 +1,7 @@
 import { useEffect, FC } from 'react';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { getContact } from '../../redux/contacts/contacts-operations';
-import ButtonIconText from '../ButtonIconText/ButtonIconText';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import Button from '../Button/Button';
 import { IContactFavoriteProps } from '../../interfaces';
 
 const ContactFavorite: FC<IContactFavoriteProps> = ({
@@ -27,13 +27,9 @@ const ContactFavorite: FC<IContactFavoriteProps> = ({
   }, [searchParams, dispatch]);
 
   return (
-    <ButtonIconText
-      type="button"
-      buttonHundler={favoriteContacts}
-      iconName="favorite"
-    >
+    <Button text buttonHundler={favoriteContacts}>
       Favorite
-    </ButtonIconText>
+    </Button>
   );
 };
 

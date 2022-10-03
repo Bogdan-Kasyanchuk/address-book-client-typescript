@@ -1,9 +1,11 @@
 import toast from 'react-hot-toast';
 import { IContact, IContactEditProps } from '../interfaces';
 
+type TName = 'name' | 'phone' | 'email';
+
 const elementIsEqualAnother = (
   contacts: IContact[],
-  name: 'name' | 'phone' | 'email',
+  name: TName,
   contactElement: string,
 ): boolean =>
   contacts.some(
@@ -12,13 +14,13 @@ const elementIsEqualAnother = (
 
 const elementIsSelfEqual = (
   contact: IContactEditProps['element'],
-  name: 'name' | 'phone' | 'email',
+  name: TName,
   contactElement: string,
 ): boolean => contact[name].toLowerCase() !== contactElement.toLowerCase();
 
 const existContactCreate = (
   contacts: IContact[],
-  { name, phone, email }: IContact,
+  { name, phone, email }: Pick<IContact, TName>,
 ): boolean | undefined => {
   let elementMessage: string = '';
 
@@ -42,7 +44,7 @@ const existContactCreate = (
 const existContactUpdate = (
   contact: IContactEditProps['element'],
   contacts: IContact[],
-  { name, phone, email }: { name: string; phone: string; email: string },
+  { name, phone, email }: Pick<IContact, TName>,
 ): boolean | undefined => {
   let elementMessage: string = '';
 

@@ -1,8 +1,5 @@
+import { IContact } from './';
+
 export interface IContactItemProps {
-  element: {
-    avatarUrl: string;
-    favorite: boolean;
-    _id: string;
-    name: string;
-  };
+  element: Pick<IContact, 'avatarUrl' | 'favorite' | '_id' | 'name'>;
 }

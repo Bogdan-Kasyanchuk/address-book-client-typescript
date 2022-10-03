@@ -3,17 +3,11 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import tokenService from '../../service/tokenService';
 import type { RootState } from '../store';
-import {
-  IAuth,
-  IUser,
-  IUserRegister,
-  IUserLogIn,
-  IUserUpdate,
-} from '../../interfaces';
+import { IAuth, IUser } from '../../interfaces';
 
 export const registerUser = createAsyncThunk<
   IAuth,
-  IUserRegister,
+  Omit<IUser, 'avatarUrl' | 'fileAvatar'>,
   { rejectValue: any }
 >('auth/register', async (credentials, { rejectWithValue }) => {
   try {
@@ -29,7 +23,7 @@ export const registerUser = createAsyncThunk<
 
 export const logInUser = createAsyncThunk<
   IAuth,
-  IUserLogIn,
+  Pick<IUser, 'email' | 'password'>,
   { rejectValue: any }
 >('auth/logIn', async (credentials, { rejectWithValue }) => {
   try {
@@ -81,7 +75,7 @@ export const currentUser = createAsyncThunk<
 
 export const updateUser = createAsyncThunk<
   IUser,
-  IUserUpdate,
+  Pick<IUser, 'name' | 'fileAvatar'>,
   { rejectValue: any }
 >('users/update', async ({ fileAvatar, name }, { rejectWithValue }) => {
   try {
@@ -89,7 +83,7 @@ export const updateUser = createAsyncThunk<
     if (fileAvatar) {
       formData.append('avatar', fileAvatar);
     }
-    formData.append('name', name);
+    formData.append('name', name as string);
     const { data } = await axios.put(`/users`, formData);
     toast.success(data.payload.message);
     return data.payload.user;

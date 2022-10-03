@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { deleteContact } from '../../redux/contacts/contacts-operations';
 import { getFilter } from '../../redux/contacts/contacts-selectors';
 import { filterContact } from '../../redux/contacts/contacts-action';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import Modal from '../Modal/Modal';
 import ButtonGroup from '../ButtonGroup/ButtonGroup';
-import ButtonText from '../ButtonText/ButtonText';
+import Button from '../Button/Button';
 import { accentColor } from '../../styles/variables';
 import { IContactDeleteProps } from '../../interfaces';
 
 const ContactDelete: FC<IContactDeleteProps> = ({
-  id,
+  _id,
   name,
   closeModalDelete,
 }) => {
@@ -20,7 +20,7 @@ const ContactDelete: FC<IContactDeleteProps> = ({
   const filter = useAppSelector(getFilter);
 
   const contactDelete = (): void => {
-    dispatch(deleteContact(id));
+    dispatch(deleteContact(_id));
     if (filter) dispatch(filterContact(''));
     closeModalDelete();
   };
@@ -29,12 +29,12 @@ const ContactDelete: FC<IContactDeleteProps> = ({
     <Modal modalHundler={closeModalDelete}>
       <Text>Are you sure you want to delete contact "{name}"?</Text>
       <ButtonGroup>
-        <ButtonText type="button" buttonHundler={contactDelete}>
+        <Button text buttonHundler={contactDelete}>
           Ok
-        </ButtonText>
-        <ButtonText type="button" buttonHundler={closeModalDelete}>
+        </Button>
+        <Button text buttonHundler={closeModalDelete}>
           Cancel
-        </ButtonText>
+        </Button>
       </ButtonGroup>
     </Modal>
   );

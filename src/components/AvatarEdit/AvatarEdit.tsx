@@ -1,8 +1,7 @@
 import { FC, useRef } from 'react';
 import styled from 'styled-components';
 import Avatar from '../Avatar/Avatar';
-import InputFile from '../InputFile/InputFile';
-import ButtonText from '../ButtonText/ButtonText';
+import Button from '../Button/Button';
 import { IAvatarEditProps } from '../../interfaces';
 
 const AvatarEdit: FC<IAvatarEditProps> = ({
@@ -18,26 +17,31 @@ const AvatarEdit: FC<IAvatarEditProps> = ({
   };
 
   return (
-    <Div>
+    <Box>
       <ImageWrapper>
         <Avatar src={imagePreview ? imagePreview : userAvatar} alt={'Avatar'} />
       </ImageWrapper>
       <ButtonWrapper>
-        <ButtonText type="button" buttonHundler={deleteAvatar}>
+        <Button text buttonHundler={deleteAvatar}>
           Delete
-        </ButtonText>
-        <ButtonText type="button" buttonHundler={clickInputAvatar}>
-          Load
-        </ButtonText>
+        </Button>
+        <Button text buttonHundler={clickInputAvatar}>
+          Upload
+        </Button>
       </ButtonWrapper>
-      <InputFile inputHundler={loadAvatar} ref={refInput} />
-    </Div>
+      <Input
+        accept="image/*"
+        type="file"
+        onChange={loadAvatar}
+        ref={refInput}
+      />
+    </Box>
   );
 };
 
 export default AvatarEdit;
 
-const Div = styled.div`
+const Box = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -54,4 +58,8 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
+`;
+
+const Input = styled.input`
+  display: none;
 `;

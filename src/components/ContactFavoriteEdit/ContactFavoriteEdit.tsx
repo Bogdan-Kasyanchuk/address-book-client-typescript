@@ -1,20 +1,17 @@
 import { FC, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { editFavoriteContact } from '../../redux/contacts/contacts-operations';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import InputCheckbox from '../InputCheckbox/InputCheckbox';
 import { accentColor } from '../../styles/variables';
-import { IContactFavoriteEditProps } from '../../interfaces';
+import { IEditFavoriteContact } from '../../interfaces';
 
-const ContactFavoriteEdit: FC<IContactFavoriteEditProps> = ({
-  favorite,
-  id,
-}) => {
+const ContactFavoriteEdit: FC<IEditFavoriteContact> = ({ favorite, _id }) => {
   const dispatch = useAppDispatch();
-  const favoriteContactEdit = (event: ChangeEvent<HTMLInputElement>) => {
+  const favoriteContactEdit = (e: ChangeEvent<HTMLInputElement>) => {
     const editedFavoriteContact = {
-      id,
-      favorite: event.target.checked,
+      _id,
+      favorite: e.target.checked,
     };
     dispatch(editFavoriteContact(editedFavoriteContact));
   };
@@ -25,7 +22,7 @@ const ContactFavoriteEdit: FC<IContactFavoriteEditProps> = ({
         favorite={favorite}
         inputCheckHandler={favoriteContactEdit}
       />
-      <Span checkedType={favorite}></Span>
+      <CheckedCenter checkedType={favorite}></CheckedCenter>
     </Label>
   );
 };
@@ -45,7 +42,7 @@ const Label = styled.label`
   border-radius: 50%;
 `;
 
-const Span = styled.span<{ checkedType: boolean | null }>`
+const CheckedCenter = styled.span<{ checkedType: boolean | null }>`
   width: 16px;
   height: 16px;
   border-radius: 50%;

@@ -6,18 +6,18 @@ import { size } from '../../styles/variables';
 const Home: FC = () => {
   return (
     <>
-      <Div>
-        <P1>Welcome!</P1>
-        <P2>This is your Addres book</P2>
-      </Div>
-      <Img src={addressBook} alt="Address book" />
+      <Box>
+        <Text1>Welcome!</Text1>
+        <Text2>This is your Addres book</Text2>
+      </Box>
+      <Image src={addressBook} alt="Address book" />
     </>
   );
 };
 
 export default Home;
 
-const Div = styled.div`
+const Box = styled.div`
   margin-bottom: 20px;
   text-align: center;
   text-transform: uppercase;
@@ -28,7 +28,7 @@ const Div = styled.div`
   }
 `;
 
-const P1 = styled.p`
+const Text1 = styled.p`
   margin-bottom: 20px;
   font-size: 40px;
 
@@ -45,7 +45,7 @@ const P1 = styled.p`
   }
 `;
 
-const P2 = styled.p`
+const Text2 = styled.p`
   font-size: 20px;
 
   ${size['450Min']} {
@@ -61,7 +61,7 @@ const P2 = styled.p`
   }
 `;
 
-const Img = styled.img`
+const Image = styled.img`
   margin-left: auto;
   margin-right: auto;
   width: 400px;

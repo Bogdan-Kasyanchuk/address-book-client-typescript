@@ -1,9 +1,10 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppSelector } from '../../hooks/useAppSelector';
 import { getIsLoggedIn } from '../../redux/auth/auth-selectors';
-import Logo from '../Logo/Logo';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import Navigation from '../Navigation/Navigation';
+import Logo from '../Logo/Logo';
 import UserMenu from '../UserMenu/UserMenu';
 import AuthNav from '../AuthNav/AuthNav';
 import { size, accentColor } from '../../styles/variables';
@@ -15,8 +16,10 @@ const AppBar: FC = () => {
     <HeaderWrapper>
       <Header>
         <Navigation />
-        <Logo children="Addres book" />
-        <Div> {isLoggedIn ? <UserMenu /> : <AuthNav />}</Div>
+        <Link to="/">
+          <Logo children="Addres book" />
+        </Link>
+        <Box> {isLoggedIn ? <UserMenu /> : <AuthNav />}</Box>
       </Header>
     </HeaderWrapper>
   );
@@ -51,6 +54,6 @@ const Header = styled.header`
   }
 `;
 
-const Div = styled.div`
+const Box = styled.div`
   flex-basis: calc(100% / 3);
 `;

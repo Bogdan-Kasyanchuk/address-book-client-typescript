@@ -6,24 +6,24 @@ import { IContactContentProps } from '../../interfaces';
 const ContactContent: FC<IContactContentProps> = ({ element }) => {
   return (
     <div>
-      <P>
-        <Span>Name:</Span> {element.name}
-      </P>
-      <P>
-        <Span>Phone:</Span> {element.phone}
-      </P>
-      <P>
-        <Span>Email:</Span> {element.email}
-      </P>
+      <TextWrapper>
+        <Text>Name:</Text> {element.name}
+      </TextWrapper>
+      <TextWrapper>
+        <Text>Phone:</Text> {element.phone}
+      </TextWrapper>
+      <TextWrapper>
+        <Text>Email:</Text> {element.email}
+      </TextWrapper>
       {element.address && (
-        <P>
-          <Span>Address:</Span> {element.address}
-        </P>
+        <TextWrapper>
+          <Text>Address:</Text> {element.address}
+        </TextWrapper>
       )}
       {element.other && (
-        <P>
-          <Span>Other:</Span> {element.other}
-        </P>
+        <TextWrapper>
+          <Text>Other:</Text> {element.other}
+        </TextWrapper>
       )}
     </div>
   );
@@ -31,7 +31,7 @@ const ContactContent: FC<IContactContentProps> = ({ element }) => {
 
 export default ContactContent;
 
-const P = styled.p`
+const TextWrapper = styled.p`
   line-height: 1.2;
 
   :not(:last-child) {
@@ -46,6 +46,6 @@ const P = styled.p`
   }
 `;
 
-const Span = styled.span`
+const Text = styled.span`
   color: ${accentColor};
 `;

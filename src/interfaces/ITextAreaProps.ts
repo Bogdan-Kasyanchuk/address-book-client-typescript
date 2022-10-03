@@ -1,10 +1,7 @@
-import { UseFormRegister } from 'react-hook-form';
-import { IContact } from './';
-
 export interface ITextAreaProps {
-  name: 'Other';
+  name: 'other';
+  register: any;
   defaultValue?: string;
-  register: UseFormRegister<IContact>;
   placeholder: string;
   title: string;
 }

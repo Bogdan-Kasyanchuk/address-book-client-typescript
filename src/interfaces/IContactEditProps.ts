@@ -1,12 +1,10 @@
+import { IContact } from './';
+
 export interface IContactEditProps {
-  element: {
-    name: string;
-    phone: string;
-    email: string;
-    address: string;
-    other: string;
-    _id: string;
-  };
+  element: Pick<
+    IContact,
+    'name' | 'phone' | 'email' | 'address' | 'other' | '_id'
+  >;
   userAvatar: string;
   closeModalEdit: () => void;
 }
